@@ -8,9 +8,9 @@ import zio.ZIOAppDefault
 
 
 object App extends ZIOAppDefault {
-  
+
   override def run = (for {
     duration <- Console.readLine("Enter a timeout duration in seconds").map(s => Duration.fromSeconds(s.toLong))
-    exitCode <- Server.serve(Routes.empty @@ Middleware.timeout(duration))
+    exitCode <- Server.serve(Routes.empty @@ Middleware.timeout(duration)).exitCode
   } yield exitCode).provide(Server.default)
 }
